@@ -1,2 +1,2 @@
 
-from .nlp import tokenize
+from .nlp import *
