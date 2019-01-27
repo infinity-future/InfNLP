@@ -1,0 +1,4 @@
+requests
+jpype1
+flask
+flask-cors
