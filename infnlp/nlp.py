@@ -10,8 +10,15 @@ def tokenize(content):
         'content': content
     }, timeout=30)
     ret = json.loads(ret.text)
-    print(ret)
+    if isinstance(ret, dict) and 'success' in ret and ret['success']:
+        return ret['result']
+    else:
+        if isinstance(ret, dict) and 'error' in ret:
+            raise RuntimeError(ret['error'])
+        else:
+            raise RuntimeError('Unkown Error')
 
 
 if __name__ == '__main__':
-    tokenize('我爱北京天安门')
+    ret = tokenize('我爱北京天安门')
+    print(ret)
