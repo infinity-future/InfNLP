@@ -41,5 +41,5 @@ def hanlp_backend(function=None):
     )
 
 
-app.run(processes=1, threaded=False)
+app.run(processes=1, threaded=False, host='0.0.0.0', port=5000)
 # app.run(debug=False)
