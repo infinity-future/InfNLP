@@ -91,6 +91,21 @@ class TestHanlp(unittest.TestCase):
             self.assertEqual(r['ID'], s['ID'])
             self.assertEqual(r['DEPREL'], s['DEPREL'])
 
+    def test_pinyin(self):
+        ret = nlp.pinyin('我爱北京天安门')
+        self.assertEqual(
+            ' '.join(ret),
+            ' '.join(['wo3', 'ai4', 'bei3', 'jing1', 'tian1', 'an1', 'men2'])
+        )
+
+    def test_s2t(self):
+        ret = nlp.s2t('用笔记本电脑写程序')
+        self.assertEqual('用筆記本電腦寫程序', ret)
+
+    def test_t2s(self):
+        ret = nlp.t2s('用筆記本電腦寫程序')
+        self.assertEqual('用笔记本电脑写程序', ret)
+
 
 if __name__ == '__main__':
     unittest.main()

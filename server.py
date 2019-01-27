@@ -27,13 +27,34 @@ def hanlp_backend(function=None):
         )
 
     params = request.get_json()
+    result = None
     if function == 'tokenize':
-        print('start tokenize')
-        r = hanlp_nlp.tokenize(**params)
-        print('end tokenize')
+        result = hanlp_nlp.tokenize(**params)
+    elif function == 'pos':
+        result = hanlp_nlp.pos(**params)
+    elif function == 'extract_keywords':
+        result = hanlp_nlp.extract_keywords(**params)
+    elif function == 'extract_summary':
+        result = hanlp_nlp.extract_summary(**params)
+    elif function == 'extract_phrase':
+        result = hanlp_nlp.extract_phrase(**params)
+    elif function == 'add':
+        result = hanlp_nlp.add(**params)
+    elif function == 'insert':
+        result = hanlp_nlp.insert(**params)
+    elif function == 'parse':
+        result = hanlp_nlp.parse(**params)
+    elif function == 'pinyin':
+        result = hanlp_nlp.pinyin(**params)
+    elif function == 's2t':
+        result = hanlp_nlp.s2t(**params)
+    elif function == 't2s':
+        result = hanlp_nlp.t2s(**params)
+
+    if result is not None:
         return jsonify(
             success=True,
-            result=r
+            result=result
         )
     return jsonify(
         success=False,

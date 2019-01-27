@@ -139,3 +139,34 @@ class HanLP(object):
     def insert(self, word, info):
         hanlp = JClass('com.hankcs.hanlp.dictionary.CustomDictionary')
         hanlp.insert(word, info)
+
+    @chcwd
+    def pinyin(self, content, method='default'):
+        hanlp = JClass('com.hankcs.hanlp.HanLP')
+        ret = hanlp.convertToPinyinList(content)
+        segments = []
+        # import pdb; pdb.set_trace()
+        for v in ret:
+            if method == 'with_tone':
+                # ['wǒ', 'ài', 'běi', 'jīng', 'tiān', 'ān', 'mén']
+                segments.append(v.getPinyinWithToneMark())
+            elif method == 'without_tone':
+                # ['wo', 'ai', 'bei', 'jing', 'tian', 'an', 'men']
+                segments.append(v.getPinyinWithoutTone())
+            elif method == 'tone':
+                # [3, 4, 3, 1, 1, 1, 2]
+                segments.append(v.getTone())
+            else:  # default
+                # ['wo3', 'ai4', 'bei3', 'jing1', 'tian1', 'an1', 'men2']
+                segments.append(v.toString())
+        return segments
+
+    @chcwd
+    def s2t(self, content):
+        hanlp = JClass('com.hankcs.hanlp.HanLP')
+        return hanlp.convertToTraditionalChinese(content)
+
+    @chcwd
+    def t2s(self, content):
+        hanlp = JClass('com.hankcs.hanlp.HanLP')
+        return hanlp.convertToSimplifiedChinese(content)
