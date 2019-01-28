@@ -47,49 +47,14 @@ class TestHanlp(unittest.TestCase):
 
     def test_parse(self):
         ret = nlp.parse('我爱北京天安门')
+        print(ret)
 
-        sample_output = [
-            {
-                "CPOSTAG": "d",
-                "DEPREL": "主谓关系",
-                "ID": 1,
-                "LEMMA": "我",
-                "NAME": "我",
-                "POSTAG": "d",
-                "HEAD": 2
-            },
-            {
-                "CPOSTAG": "v",
-                "DEPREL": "核心关系",
-                "ID": 2,
-                "LEMMA": "爱",
-                "NAME": "爱",
-                "POSTAG": "v",
-                "HEAD": 0
-            },
-            {
-                "CPOSTAG": "ns",
-                "DEPREL": "定中关系",
-                "ID": 3,
-                "LEMMA": "北京",
-                "NAME": "未##地",
-                "POSTAG": "ns",
-                "HEAD": 4
-            },
-            {
-                "CPOSTAG": "ns",
-                "DEPREL": "动宾关系",
-                "ID": 4,
-                "LEMMA": "天安门",
-                "NAME": "未##地",
-                "POSTAG": "ns",
-                "HEAD": 2
-            }
-        ]
+        sample_output = [{'id': 1, 'lemma': '我', 'postag': 'rr', 'deprel': 'SBV', 'head': 2}, {'id': 2, 'lemma': '爱', 'postag': 'v', 'deprel': 'HED', 'head': 0}, {
+            'id': 3, 'lemma': '北京', 'postag': 'ns', 'deprel': 'ATT', 'head': 4}, {'id': 4, 'lemma': '天安门', 'postag': 'ns', 'deprel': 'VOB', 'head': 2}]
         self.assertEqual(len(ret), len(sample_output))
         for r, s in zip(ret, sample_output):
-            self.assertEqual(r['ID'], s['ID'])
-            self.assertEqual(r['DEPREL'], s['DEPREL'])
+            self.assertEqual(r['id'], s['id'])
+            self.assertEqual(r['deprel'], s['deprel'])
 
     def test_pinyin(self):
         ret = nlp.pinyin('我爱北京天安门')

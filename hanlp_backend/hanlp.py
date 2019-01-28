@@ -114,19 +114,23 @@ class HanLP(object):
         MaxEntDependencyParser
         NeuralNetworkDependencyParser
         """
-        hanlp = JClass('com.hankcs.hanlp.HanLP')
 
         def _extract_word(word):
             w = {}
-            for attr in ('CPOSTAG', 'DEPREL', 'ID', 'LEMMA', 'NAME', 'POSTAG'):
-                w[attr] = getattr(word, attr)
+            for attr in ('ID', 'LEMMA', 'POSTAG', 'DEPREL'):
+                w[attr.lower()] = getattr(word, attr)
             return w
 
-        r = hanlp.parseDependency(content)
+        hanlp = JClass((
+            'com.hankcs.hanlp.'
+            'dependency.nnparser.NeuralNetworkDependencyParser'))
+        tokenizer = JClass(
+            'com.hankcs.hanlp.tokenizer.StandardTokenizer')
+        r = hanlp.compute(tokenizer.segment(content))
         ret = []
         for word in r.getWordArray():
             w = _extract_word(word)
-            w['HEAD'] = _extract_word(word.HEAD)['ID']
+            w['head'] = _extract_word(word.HEAD)['id']
             ret.append(w)
         return ret
 

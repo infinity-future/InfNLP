@@ -2,5 +2,4 @@
 *.py[cod]
 data
 hanlp.properties
-hanlp.properties.sample
 *.log
